@@ -10,16 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" id="nav">
         <div class="nav-logo">
             <span class="logo-text">CasaYa</span>
             <span class="logo-dot"></span>
@@ -31,16 +26,27 @@
             <a href="pages/dashboard.html" class="nav-link">Mi cuenta</a>
             <a href="#contact" class="nav-link nav-cta">Contactar</a>
         </div>
-        <div class="nav-toggle">
+        <div class="nav-toggle" id="navToggle">
             <span></span>
             <span></span>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80')"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#properties" class="mobile-link">Propiedades</a>
+        <a href="#neighborhoods" class="mobile-link">Barrios</a>
+        <a href="#about" class="mobile-link">Nosotros</a>
+        <a href="pages/dashboard.html" class="mobile-link">Mi cuenta</a>
+        <a href="#contact" class="mobile-link mobile-cta">Contactar</a>
+    </div>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero" id="hero">
+        <div class="hero-video-container">
+            <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80" class="hero-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxury-house-with-a-pool-4017-large.mp4" type="video/mp4">
+            </video>
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
@@ -69,55 +75,92 @@
         </div>
         <div class="hero-scroll">
             <div class="scroll-indicator">
-                <span>Scroll</span>
+                <span>Descubrir</span>
                 <div class="scroll-line"></div>
-            </div>
-        </div>
-        <div class="hero-marquee">
-            <div class="marquee-track">
-                <span>Madrid</span>
-                <span class="sep">•</span>
-                <span>Barcelona</span>
-                <span class="sep">•</span>
-                <span>Valencia</span>
-                <span class="sep">•</span>
-                <span>Marbella</span>
-                <span class="sep">•</span>
-                <span>Palma</span>
-                <span class="sep">•</span>
-                <span>Madrid</span>
-                <span class="sep">•</span>
-                <span>Barcelona</span>
-                <span class="sep">•</span>
-                <span>Valencia</span>
-                <span class="sep">•</span>
-                <span>Marbella</span>
-                <span class="sep">•</span>
-                <span>Palma</span>
-                <span class="sep">•</span>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats">
+    <section class="stats" id="stats">
         <div class="stats-container">
             <div class="stat-item">
-                <span class="stat-number" data-target="247">0</span>
+                <span class="stat-number" data-target="247">247</span>
                 <span class="stat-label">Propiedades exclusivas</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="18">0</span>
+                <span class="stat-number" data-target="18">18</span>
                 <span class="stat-label">Años de experiencia</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="98">0</span>
-                <span class="stat-suffix">%</span>
+                <span class="stat-number" data-target="98">98%</span>
                 <span class="stat-label">Clientes satisfechos</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="12">0</span>
+                <span class="stat-number" data-target="12">12</span>
                 <span class="stat-label">Ciudades premium</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Filter Section -->
+    <section class="search-section" id="search">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Encuentra tu propiedad ideal</h2>
+                <p>Filtra por tus preferencias</p>
+            </div>
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label>Ubicación</label>
+                    <select id="filterLocation">
+                        <option value="">Todas las zonas</option>
+                        <option value="madrid">Madrid</option>
+                        <option value="barcelona">Barcelona</option>
+                        <option value="marbella">Marbella</option>
+                        <option value="mallorca">Palma de Mallorca</option>
+                        <option value="valencia">Valencia</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Tipo de propiedad</label>
+                    <select id="filterType">
+                        <option value="">Todos los tipos</option>
+                        <option value="villa">Villa</option>
+                        <option value="atico">Ático</option>
+                        <option value="casa">Casa</option>
+                        <option value="finca">Finca</option>
+                        <option value="duplex">Dúplex</option>
+                        <option value="chalet">Chalet</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Precio máximo</label>
+                    <select id="filterPrice">
+                        <option value="">Sin límite</option>
+                        <option value="1000000">1.000.000 €</option>
+                        <option value="2000000">2.000.000 €</option>
+                        <option value="3000000">3.000.000 €</option>
+                        <option value="5000000">5.000.000 €</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Habitaciones</label>
+                    <select id="filterRooms">
+                        <option value="">Cualquiera</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+                <button class="btn-search" id="btnSearch">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    Buscar
+                </button>
             </div>
         </div>
     </section>
@@ -128,11 +171,14 @@
             <span class="section-eyebrow">Propiedades Destacadas</span>
             <h2 class="section-title">Lo mejor del mercado</h2>
         </div>
-        <div class="properties-grid">
-            <article class="property-card featured">
+        <div class="properties-grid" id="propertiesGrid">
+            <article class="property-card featured" data-location="marbella" data-type="villa" data-price="2450000" data-rooms="5">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Villa de lujo">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Villa de lujo" loading="lazy">
                     <div class="property-badge">Exclusiva</div>
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">Marbella, Málaga</span>
@@ -148,9 +194,12 @@
                     </div>
                 </div>
             </article>
-            <article class="property-card">
+            <article class="property-card" data-location="madrid" data-type="atico" data-price="1890000" data-rooms="3">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="Ático moderno">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="Ático moderno" loading="lazy">
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">Salamanca, Madrid</span>
@@ -166,9 +215,12 @@
                     </div>
                 </div>
             </article>
-            <article class="property-card">
+            <article class="property-card" data-location="barcelona" data-type="casa" data-price="3200000" data-rooms="4">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Casa moderna">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Casa moderna" loading="lazy">
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">Pedralbes, Barcelona</span>
@@ -184,9 +236,12 @@
                     </div>
                 </div>
             </article>
-            <article class="property-card">
+            <article class="property-card" data-location="mallorca" data-type="finca" data-price="4750000" data-rooms="6">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Finca rústica">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Finca rústica" loading="lazy">
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">Sóller, Mallorca</span>
@@ -202,9 +257,12 @@
                     </div>
                 </div>
             </article>
-            <article class="property-card">
+            <article class="property-card" data-location="barcelona" data-type="duplex" data-price="2100000" data-rooms="4">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Dúplex">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Dúplex" loading="lazy">
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">Eixample, Barcelona</span>
@@ -220,9 +278,12 @@
                     </div>
                 </div>
             </article>
-            <article class="property-card">
+            <article class="property-card" data-location="madrid" data-type="chalet" data-price="3850000" data-rooms="5">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80" alt="Chalet">
+                    <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80" alt="Chalet" loading="lazy">
+                    <div class="property-overlay">
+                        <span>Ver detalles</span>
+                    </div>
                 </div>
                 <div class="property-content">
                     <span class="property-location">La Moraleja, Madrid</span>
@@ -253,7 +314,7 @@
         <div class="neighborhoods-grid">
             <div class="neighborhood-card large">
                 <div class="neighborhood-image">
-                    <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&q=80" alt="Madrid">
+                    <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&q=80" alt="Madrid" loading="lazy">
                 </div>
                 <div class="neighborhood-content">
                     <h3>Madrid</h3>
@@ -263,7 +324,7 @@
             </div>
             <div class="neighborhood-card">
                 <div class="neighborhood-image">
-                    <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=80" alt="Barcelona">
+                    <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=80" alt="Barcelona" loading="lazy">
                 </div>
                 <div class="neighborhood-content">
                     <h3>Barcelona</h3>
@@ -273,7 +334,7 @@
             </div>
             <div class="neighborhood-card">
                 <div class="neighborhood-image">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" alt="Marbella">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" alt="Marbella" loading="lazy">
                 </div>
                 <div class="neighborhood-content">
                     <h3>Marbella</h3>
@@ -283,7 +344,7 @@
             </div>
             <div class="neighborhood-card">
                 <div class="neighborhood-image">
-                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Palma">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Palma" loading="lazy">
                 </div>
                 <div class="neighborhood-content">
                     <h3>Palma de Mallorca</h3>
@@ -293,7 +354,7 @@
             </div>
             <div class="neighborhood-card">
                 <div class="neighborhood-image">
-                    <img src="https://images.unsplash.com/photo-1509914398892-963f53e6e2f1?w=800&q=80" alt="Valencia">
+                    <img src="https://images.unsplash.com/photo-1509914398892-963f53e6e2f1?w=800&q=80" alt="Valencia" loading="lazy">
                 </div>
                 <div class="neighborhood-content">
                     <h3>Valencia</h3>
@@ -307,7 +368,7 @@
     <!-- Testimonials -->
     <section class="testimonials" id="about">
         <div class="testimonials-bg">
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80" alt="">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80" alt="" loading="lazy">
         </div>
         <div class="testimonials-overlay"></div>
         <div class="testimonials-content">
@@ -345,7 +406,7 @@
                 </div>
             </div>
             <div class="testimonial-nav">
-                <button class="testimonial-prev">
+                <button class="testimonial-prev" aria-label="Anterior">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 12H5M12 19l-7-7 7-7"/>
                     </svg>
@@ -355,7 +416,7 @@
                     <span class="dot"></span>
                     <span class="dot"></span>
                 </div>
-                <button class="testimonial-next">
+                <button class="testimonial-next" aria-label="Siguiente">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
@@ -364,29 +425,76 @@
         </div>
     </section>
 
-    <!-- Contact CTA -->
-    <section class="contact-cta" id="contact">
-        <div class="contact-content">
-            <h2 class="contact-title">
-                <span>¿Listo para encontrar</span>
-                <span class="accent">tu hogar ideal?</span>
-            </h2>
-            <p class="contact-subtitle">
-                Nuestros agentes especializados están preparados para ayudarte 
-                en cada paso del proceso.
-            </p>
-            <div class="contact-buttons">
-                <a href="mailto:info@casaya.com" class="btn-primary light">
-                    <span>Contactar ahora</span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <span class="section-eyebrow">Contacto</span>
+                <h2>Hablemos de tu próximo hogar</h2>
+                <p>Nuestros agentes especializados están preparados para ayudarte en cada paso del proceso.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                        </svg>
+                        <span>+34 900 123 456</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>info@casaya.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Calle Serrano 45, Madrid</span>
+                    </div>
+                </div>
+                <a href="https://wa.me/34900123456" class="btn-whatsapp" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                     </svg>
+                    Contactar por WhatsApp
                 </a>
-                <a href="tel:+34900123456" class="btn-secondary light">+34 900 123 456</a>
             </div>
-        </div>
-        <div class="contact-image">
-            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&q=80" alt="Interior de lujo">
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" name="name" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+34 600 000 000">
+                </div>
+                <div class="form-group">
+                    <label for="interest">Interés</label>
+                    <select id="interest" name="interest">
+                        <option value="">Selecciona una opción</option>
+                        <option value="comprar">Comprar propiedad</option>
+                        <option value="vender">Vender propiedad</option>
+                        <option value="alquilar">Alquiler de lujo</option>
+                        <option value="invertir">Inversión</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Cuéntanos qué buscas..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <span>Enviar mensaje</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </section>
 
@@ -397,35 +505,40 @@
                 <span class="footer-logo">CasaYa</span>
                 <p>Propiedades exclusivas en las mejores ubicaciones de España.</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Instagram">
+                    <a href="https://instagram.com/casaya" target="_blank" aria-label="Instagram">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="2" width="20" height="20" rx="5"/>
                             <circle cx="12" cy="12" r="5"/>
                             <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="LinkedIn">
+                    <a href="https://linkedin.com/company/casaya" target="_blank" aria-label="LinkedIn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
                             <rect x="2" y="9" width="4" height="12"/>
                             <circle cx="4" cy="4" r="2"/>
                         </svg>
                     </a>
+                    <a href="https://facebook.com/casaya" target="_blank" aria-label="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             <div class="footer-links">
                 <h4>Propiedades</h4>
-                <a href="#">Comprar</a>
-                <a href="#">Vender</a>
-                <a href="#">Alquiler de lujo</a>
-                <a href="#">Nuevas construcciones</a>
+                <a href="#properties">Comprar</a>
+                <a href="#contact">Vender</a>
+                <a href="#properties">Alquiler de lujo</a>
+                <a href="#properties">Nuevas construcciones</a>
             </div>
             <div class="footer-links">
                 <h4>Empresa</h4>
-                <a href="#">Sobre nosotros</a>
-                <a href="#">Equipo</a>
-                <a href="#">Carreras</a>
-                <a href="#">Prensa</a>
+                <a href="#about">Sobre nosotros</a>
+                <a href="#about">Equipo</a>
+                <a href="#contact">Carreras</a>
+                <a href="#about">Prensa</a>
             </div>
             <div class="footer-links">
                 <h4>Contacto</h4>
@@ -443,6 +556,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/34900123456" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
 
     <script src="js/main.js"></script>
 </body>

@@ -1,6 +1,6 @@
 /* ========================================
    CASAYA - Luxury Real Estate
-   Premium CSS with cinematic animations
+   Premium Design System
    ======================================== */
 
 /* CSS Variables */
@@ -8,6 +8,7 @@
     /* Paleta Premium */
     --azul-marino: #1B3A5C;
     --azul-oscuro: #0F1F33;
+    --azul-medio: #2A4A6F;
     --beige-arena: #F5F1E8;
     --beige-suave: #EDE8DC;
     --dorado: #C9A96E;
@@ -20,7 +21,7 @@
     /* Variables funcionales */
     --color-bg: var(--azul-marino);
     --color-bg-light: var(--azul-oscuro);
-    --color-bg-card: rgba(255, 255, 255, 0.05);
+    --color-bg-card: rgba(255, 255, 255, 0.03);
     --color-text: var(--texto-claro);
     --color-text-muted: var(--texto-muted);
     --color-text-dim: rgba(255, 255, 255, 0.4);
@@ -49,6 +50,7 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -56,57 +58,12 @@ body {
     background: var(--color-bg);
     color: var(--color-text);
     overflow-x: hidden;
-    cursor: none;
+    line-height: 1.6;
 }
 
 ::selection {
     background: var(--color-accent);
     color: var(--color-bg);
-}
-
-/* Custom Cursor */
-.cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 6px;
-    height: 6px;
-    background: var(--color-accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, background 0.3s;
-    mix-blend-mode: difference;
-}
-
-.cursor-outline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(201, 169, 110, 0.4);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s var(--transition-smooth), 
-                height 0.4s var(--transition-smooth), 
-                border-color 0.3s,
-                background 0.3s;
-}
-
-.cursor-outline.hover {
-    width: 60px;
-    height: 60px;
-    border-color: var(--color-accent);
-    background: rgba(201, 169, 110, 0.05);
-}
-
-/* Hide default cursor on interactive elements */
-a, button, .property-card, .neighborhood-card {
-    cursor: none;
 }
 
 /* ========================================
@@ -117,34 +74,34 @@ a, button, .property-card, .neighborhood-card {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    transition: background 0.5s var(--transition-smooth), 
-                backdrop-filter 0.5s var(--transition-smooth),
-                padding 0.5s var(--transition-smooth);
+    transition: all 0.5s var(--transition-smooth);
 }
 
 .nav.scrolled {
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(15, 31, 51, 0.95);
     backdrop-filter: blur(20px);
-    padding: 1rem 3rem;
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 4rem;
+    box-shadow: 0 2px 40px rgba(0, 0, 0, 0.2);
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
 }
 
 .logo-text {
     font-family: var(--font-serif);
-    font-size: 1.75rem;
-    font-weight: 300;
-    letter-spacing: -0.02em;
+    font-size: 1.8rem;
+    font-weight: 600;
     color: var(--color-text);
+    letter-spacing: -0.02em;
 }
 
 .logo-dot {
@@ -152,22 +109,21 @@ a, button, .property-card, .neighborhood-card {
     height: 6px;
     background: var(--color-accent);
     border-radius: 50%;
-    display: inline-block;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 3rem;
 }
 
 .nav-link {
-    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
     font-weight: 400;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    text-decoration: none;
-    color: var(--color-text-muted);
     transition: color 0.4s var(--transition-smooth);
     position: relative;
 }
@@ -192,9 +148,10 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .nav-cta {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-text);
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    border-radius: 100px;
     transition: all 0.4s var(--transition-smooth);
 }
 
@@ -204,7 +161,6 @@ a, button, .property-card, .neighborhood-card {
 
 .nav-cta:hover {
     background: var(--color-accent);
-    border-color: var(--color-accent);
     color: var(--color-bg);
 }
 
@@ -212,14 +168,57 @@ a, button, .property-card, .neighborhood-card {
     display: none;
     flex-direction: column;
     gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
 }
 
 .nav-toggle span {
-    display: block;
-    width: 24px;
+    width: 28px;
     height: 1px;
     background: var(--color-text);
     transition: all 0.4s var(--transition-smooth);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-bg-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 999;
+    transition: right 0.6s var(--transition-smooth);
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-link {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.mobile-link:hover {
+    color: var(--color-accent);
+}
+
+.mobile-cta {
+    padding: 1rem 3rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 100px;
+    color: var(--color-accent);
+    font-size: 1rem;
+    font-family: var(--font-sans);
 }
 
 /* ========================================
@@ -231,80 +230,89 @@ a, button, .property-card, .neighborhood-card {
     min-height: 700px;
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-video-container {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
 }
 
-.hero-image {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    transform: scale(1.1);
-    will-change: transform;
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hero-overlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(
-        180deg,
-        rgba(10, 10, 10, 0.3) 0%,
-        rgba(10, 10, 10, 0.5) 50%,
-        rgba(10, 10, 10, 0.95) 100%
+        to bottom,
+        rgba(15, 31, 51, 0.7) 0%,
+        rgba(15, 31, 51, 0.5) 50%,
+        rgba(15, 31, 51, 0.9) 100%
     );
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
+    text-align: center;
     max-width: 900px;
-    padding: 0 5vw;
-    margin-top: -5vh;
+    padding: 0 2rem;
+    opacity: 0;
+    animation: fadeInUp 1.2s var(--transition-smooth) 0.5s forwards;
 }
 
 .hero-eyebrow {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateY(30px);
+    margin-bottom: 2.5rem;
 }
 
 .hero-eyebrow .line {
-    width: 40px;
+    width: 50px;
     height: 1px;
     background: var(--color-accent);
 }
 
 .hero-eyebrow .text {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
     color: var(--color-accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 300;
 }
 
 .hero-title {
     font-family: var(--font-serif);
-    font-weight: 300;
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
 }
 
 .title-line {
     display: block;
-    font-size: clamp(3rem, 7vw, 6rem);
     opacity: 0;
-    transform: translateY(60px);
-    overflow: hidden;
+    animation: fadeInUp 1s var(--transition-smooth) forwards;
 }
+
+.title-line:nth-child(1) { animation-delay: 0.7s; }
+.title-line:nth-child(2) { animation-delay: 0.9s; }
+.title-line:nth-child(3) { animation-delay: 1.1s; }
 
 .title-line.accent {
     color: var(--color-accent);
@@ -312,136 +320,86 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .hero-subtitle {
-    font-size: 1.125rem;
-    font-weight: 300;
-    line-height: 1.7;
+    font-size: 1.1rem;
     color: var(--color-text-muted);
-    max-width: 480px;
-    margin-bottom: 3rem;
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
     opacity: 0;
-    transform: translateY(30px);
+    animation: fadeInUp 1s var(--transition-smooth) 1.3s forwards;
 }
 
 .hero-cta {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    justify-content: center;
     opacity: 0;
-    transform: translateY(30px);
+    animation: fadeInUp 1s var(--transition-smooth) 1.5s forwards;
 }
 
 /* Buttons */
-.btn-primary {
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-submit {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.5s var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+}
+
+.btn-primary {
     background: var(--color-accent);
     color: var(--color-bg);
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    transition: all 0.5s var(--transition-smooth);
-    position: relative;
-    overflow: hidden;
 }
 
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent-light);
-    transform: translateX(-100%);
-    transition: transform 0.5s var(--transition-smooth);
-}
-
-.btn-primary:hover::before {
-    transform: translateX(0);
-}
-
-.btn-primary span,
-.btn-primary svg {
-    position: relative;
-    z-index: 1;
-}
-
-.btn-primary svg {
-    transition: transform 0.3s var(--transition-smooth);
-}
-
-.btn-primary:hover svg {
-    transform: translateX(4px);
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(201, 169, 110, 0.3);
 }
 
 .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    padding: 1rem 2rem;
     background: transparent;
     color: var(--color-text);
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.5s var(--transition-smooth);
 }
 
 .btn-secondary:hover {
-    border-color: var(--color-text);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(201, 169, 110, 0.05);
 }
 
 .btn-outline {
-    display: inline-block;
-    padding: 1rem 2.5rem;
     background: transparent;
-    color: var(--color-text);
-    font-size: 0.8125rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.5s var(--transition-smooth);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
 }
 
 .btn-outline:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-}
-
-/* Light variant buttons */
-.btn-primary.light {
-    background: var(--color-text);
+    background: var(--color-accent);
     color: var(--color-bg);
 }
 
-.btn-primary.light::before {
-    background: var(--color-accent);
-}
-
-.btn-secondary.light {
-    border-color: rgba(255, 255, 255, 0.3);
-    color: var(--color-text);
-}
-
-.btn-secondary.light:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--color-text);
-}
-
-/* Hero Scroll Indicator */
+/* Scroll Indicator */
 .hero-scroll {
     position: absolute;
     bottom: 3rem;
-    left: 5vw;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s var(--transition-smooth) 2s forwards;
 }
 
 .scroll-indicator {
@@ -452,12 +410,11 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .scroll-indicator span {
-    font-size: 0.625rem;
-    font-weight: 500;
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-text-dim);
-    writing-mode: vertical-rl;
+    font-weight: 300;
 }
 
 .scroll-line {
@@ -467,55 +424,13 @@ a, button, .property-card, .neighborhood-card {
     animation: scrollPulse 2s ease-in-out infinite;
 }
 
-@keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(0.5); transform-origin: top; }
-    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-}
-
-/* Hero Marquee */
-.hero-marquee {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem 0;
-    background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
-    overflow: hidden;
-    z-index: 2;
-}
-
-.marquee-track {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 30s linear infinite;
-    width: max-content;
-}
-
-.marquee-track span {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-dim);
-    white-space: nowrap;
-}
-
-.marquee-track .sep {
-    color: var(--color-accent);
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
 /* ========================================
    STATS SECTION
    ======================================== */
 .stats {
-    padding: 6rem 5vw;
-    background: var(--color-bg);
+    padding: 8rem 4rem;
+    background: var(--color-bg-light);
+    position: relative;
 }
 
 .stats-container {
@@ -523,42 +438,135 @@ a, button, .property-card, .neighborhood-card {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
+    gap: 4rem;
+    text-align: center;
 }
 
 .stat-item {
-    text-align: center;
-    padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: border-color 0.5s var(--transition-smooth);
+    opacity: 0;
+    transform: translateY(30px);
 }
 
-.stat-item:hover {
-    border-color: rgba(201, 169, 110, 0.2);
+.stat-item.visible {
+    animation: fadeInUp 0.8s var(--transition-smooth) forwards;
 }
 
 .stat-number {
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 300;
+    font-size: 3.5rem;
+    font-weight: 400;
     color: var(--color-accent);
+    display: block;
     line-height: 1;
-}
-
-.stat-suffix {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 300;
-    color: var(--color-accent);
+    margin-bottom: 1rem;
 }
 
 .stat-label {
-    display: block;
-    margin-top: 0.75rem;
-    font-size: 0.8125rem;
-    font-weight: 300;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
     letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+/* ========================================
+   SEARCH SECTION
+   ======================================== */
+.search-section {
+    padding: 8rem 4rem;
+    background: var(--color-bg);
+}
+
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.search-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.search-header p {
+    color: var(--color-text-muted);
+    font-weight: 300;
+}
+
+.search-filters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 1.5rem;
+    align-items: end;
+    background: var(--color-bg-card);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    font-weight: 400;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23C9A96E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.filter-group select option {
+    background: var(--color-bg-light);
+    color: var(--color-text);
+}
+
+.btn-search {
+    padding: 1rem 2rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.4s var(--transition-smooth);
+    height: fit-content;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201, 169, 110, 0.3);
 }
 
 /* ========================================
@@ -566,27 +574,34 @@ a, button, .property-card, .neighborhood-card {
    ======================================== */
 .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
+    padding-top: 4rem;
 }
 
 .section-eyebrow {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
     color: var(--color-accent);
-    margin-bottom: 1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
 }
 
-.section-eyebrow.light {
-    color: var(--color-accent-light);
+.section-eyebrow::before,
+.section-eyebrow::after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--color-accent);
 }
 
 .section-title {
     font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
     line-height: 1.1;
 }
 
@@ -594,8 +609,8 @@ a, button, .property-card, .neighborhood-card {
    PROPERTIES SECTION
    ======================================== */
 .properties {
-    padding: 8rem 5vw;
-    background: var(--color-bg-light);
+    padding: 8rem 4rem;
+    background: var(--color-bg);
 }
 
 .properties-grid {
@@ -603,26 +618,34 @@ a, button, .property-card, .neighborhood-card {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .property-card {
     background: var(--color-bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.6s var(--transition-smooth),
-                box-shadow 0.6s var(--transition-smooth);
-    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.6s var(--transition-smooth);
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.property-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .property-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    border-color: rgba(201, 169, 110, 0.2);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .property-card.featured {
     grid-column: span 2;
-    grid-row: span 2;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
 }
 
 .property-image {
@@ -632,7 +655,8 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .property-card.featured .property-image {
-    aspect-ratio: 16/10;
+    aspect-ratio: auto;
+    height: 100%;
 }
 
 .property-image img {
@@ -643,61 +667,92 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .property-card:hover .property-image img {
-    transform: scale(1.08);
+    transform: scale(1.05);
+}
+
+.property-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 31, 51, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s var(--transition-smooth);
+}
+
+.property-overlay span {
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transform: translateY(20px);
+    transition: all 0.5s var(--transition-smooth);
+}
+
+.property-card:hover .property-overlay {
+    opacity: 1;
+}
+
+.property-card:hover .property-overlay span {
+    transform: translateY(0);
 }
 
 .property-badge {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    padding: 0.5rem 1rem;
+    top: 1.5rem;
+    left: 1.5rem;
+    padding: 0.5rem 1.25rem;
     background: var(--color-accent);
     color: var(--color-bg);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    border-radius: 100px;
     z-index: 2;
 }
 
 .property-content {
-    padding: 1.5rem;
+    padding: 2rem;
 }
 
 .property-location {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--color-accent);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 0.5rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.75rem;
 }
 
 .property-title {
     font-family: var(--font-serif);
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 400;
     line-height: 1.3;
-    margin-bottom: 1rem;
-    transition: color 0.3s;
-}
-
-.property-card:hover .property-title {
-    color: var(--color-accent-light);
+    margin-bottom: 1.25rem;
 }
 
 .property-details {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1.25rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .property-details span {
-    font-size: 0.8125rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
+    font-weight: 300;
 }
 
 .property-footer {
@@ -709,39 +764,55 @@ a, button, .property-card, .neighborhood-card {
 .property-price {
     font-family: var(--font-serif);
     font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--color-text);
+    font-weight: 400;
+    color: var(--color-accent);
 }
 
 .property-link {
-    font-size: 0.8125rem;
-    font-weight: 400;
     color: var(--color-text-muted);
     text-decoration: none;
+    font-size: 0.85rem;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
     transition: color 0.3s;
+    position: relative;
+}
+
+.property-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transition: width 0.3s;
 }
 
 .property-link:hover {
     color: var(--color-accent);
 }
 
+.property-link:hover::after {
+    width: 100%;
+}
+
 .properties-cta {
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 5rem;
 }
 
 /* ========================================
    NEIGHBORHOODS SECTION
    ======================================== */
 .neighborhoods {
-    padding: 8rem 5vw;
-    background: var(--color-bg);
+    padding: 8rem 4rem;
+    background: var(--color-bg-light);
 }
 
 .neighborhoods-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
 }
 
 .neighborhoods-grid {
@@ -749,58 +820,45 @@ a, button, .property-card, .neighborhood-card {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 350px);
     gap: 1.5rem;
 }
 
 .neighborhood-card {
     position: relative;
+    border-radius: 20px;
     overflow: hidden;
-    aspect-ratio: 1;
     cursor: pointer;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.neighborhood-card.visible {
+    animation: fadeInUp 0.8s var(--transition-smooth) forwards;
 }
 
 .neighborhood-card.large {
     grid-column: span 2;
     grid-row: span 2;
-    aspect-ratio: auto;
 }
 
 .neighborhood-image {
     position: absolute;
-    inset: 0;
-    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .neighborhood-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1s var(--transition-smooth);
+    transition: transform 0.8s var(--transition-smooth);
 }
 
 .neighborhood-card:hover .neighborhood-image img {
-    transform: scale(1.1);
-}
-
-.neighborhood-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        transparent 30%,
-        rgba(10, 10, 10, 0.8) 100%
-    );
-    transition: background 0.5s;
-}
-
-.neighborhood-card:hover .neighborhood-image::after {
-    background: linear-gradient(
-        180deg,
-        transparent 10%,
-        rgba(10, 10, 10, 0.9) 100%
-    );
+    transform: scale(1.05);
 }
 
 .neighborhood-content {
@@ -808,41 +866,30 @@ a, button, .property-card, .neighborhood-card {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 2rem;
+    padding: 2.5rem;
+    background: linear-gradient(to top, rgba(15, 31, 51, 0.95), transparent);
     z-index: 2;
-    transform: translateY(20px);
-    transition: transform 0.5s var(--transition-smooth);
-}
-
-.neighborhood-card:hover .neighborhood-content {
-    transform: translateY(0);
 }
 
 .neighborhood-content h3 {
     font-family: var(--font-serif);
-    font-size: 1.75rem;
+    font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
 }
 
 .neighborhood-content p {
-    font-size: 0.8125rem;
+    font-size: 0.9rem;
     color: var(--color-text-muted);
-    margin-bottom: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.5s var(--transition-smooth);
-}
-
-.neighborhood-card:hover .neighborhood-content p {
-    opacity: 1;
+    margin-bottom: 1rem;
+    font-weight: 300;
 }
 
 .neighborhood-count {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--color-accent);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-accent);
 }
 
 /* ========================================
@@ -850,17 +897,16 @@ a, button, .property-card, .neighborhood-card {
    ======================================== */
 .testimonials {
     position: relative;
-    padding: 10rem 5vw;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 10rem 4rem;
     overflow: hidden;
 }
 
 .testimonials-bg {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
 }
 
@@ -873,13 +919,14 @@ a, button, .property-card, .neighborhood-card {
 
 .testimonials-overlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(
-        180deg,
-        var(--color-bg) 0%,
-        transparent 20%,
-        transparent 80%,
-        var(--color-bg) 100%
+        to bottom,
+        rgba(15, 31, 51, 0.8),
+        rgba(15, 31, 51, 0.9)
     );
     z-index: 1;
 }
@@ -887,13 +934,15 @@ a, button, .property-card, .neighborhood-card {
 .testimonials-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: 900px;
+    margin: 0 auto;
     text-align: center;
 }
 
 .testimonial-slider {
     position: relative;
     min-height: 250px;
+    margin: 4rem 0;
 }
 
 .testimonial-slide {
@@ -902,25 +951,24 @@ a, button, .property-card, .neighborhood-card {
     left: 0;
     width: 100%;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s var(--transition-smooth),
-                transform 0.8s var(--transition-smooth);
+    transform: translateX(50px);
+    transition: all 0.8s var(--transition-smooth);
     pointer-events: none;
 }
 
 .testimonial-slide.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     pointer-events: all;
 }
 
 .testimonial-slide blockquote {
     font-family: var(--font-serif);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 300;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.5;
     font-style: italic;
-    line-height: 1.4;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .testimonial-slide cite {
@@ -937,30 +985,39 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .testimonial-slide cite span {
-    font-size: 0.8125rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
     font-style: normal;
+    font-weight: 300;
 }
 
 .testimonial-nav {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     gap: 2rem;
-    margin-top: 3rem;
 }
 
-.testimonial-nav button {
-    background: none;
+.testimonial-prev,
+.testimonial-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
     color: var(--color-text);
-    padding: 0.75rem;
-    transition: all 0.3s var(--transition-smooth);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--transition-smooth);
 }
 
-.testimonial-nav button:hover {
+.testimonial-prev:hover,
+.testimonial-next:hover {
     border-color: var(--color-accent);
     color: var(--color-accent);
+    background: rgba(201, 169, 110, 0.05);
 }
 
 .testimonial-dots {
@@ -968,97 +1025,170 @@ a, button, .property-card, .neighborhood-card {
     gap: 0.75rem;
 }
 
-.testimonial-dots .dot {
+.dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    transition: all 0.3s var(--transition-smooth);
+    transition: all 0.4s var(--transition-smooth);
 }
 
-.testimonial-dots .dot.active {
+.dot.active {
     background: var(--color-accent);
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 /* ========================================
-   CONTACT CTA SECTION
+   CONTACT SECTION
    ======================================== */
-.contact-cta {
+.contact-section {
+    padding: 10rem 4rem;
+    background: var(--color-bg);
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 80vh;
-    background: var(--color-bg-light);
+    gap: 6rem;
+    align-items: start;
 }
 
-.contact-content {
+.contact-info h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.contact-info > p {
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.contact-details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 5rem;
-    padding-left: 10vw;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
-.contact-title {
-    font-family: var(--font-serif);
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-text-muted);
     font-weight: 300;
-    line-height: 1.1;
+}
+
+.contact-item svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.4s var(--transition-smooth);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+}
+
+/* Contact Form */
+.contact-form {
+    background: var(--color-bg-card);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-group {
     margin-bottom: 1.5rem;
 }
 
-.contact-title span {
+.form-group label {
     display: block;
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    font-weight: 400;
 }
 
-.contact-title .accent {
-    color: var(--color-accent);
-    font-style: italic;
-}
-
-.contact-subtitle {
-    font-size: 1.0625rem;
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--color-text-muted);
-    max-width: 400px;
-    margin-bottom: 2.5rem;
-}
-
-.contact-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.contact-image {
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-image img {
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1.2s var(--transition-smooth);
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    transition: all 0.3s;
 }
 
-.contact-cta:hover .contact-image img {
-    transform: scale(1.05);
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-dim);
+}
+
+.form-group select option {
+    background: var(--color-bg-light);
+    color: var(--color-text);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1.25rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(201, 169, 110, 0.3);
 }
 
 /* ========================================
    FOOTER
    ======================================== */
 .footer {
-    padding: 5rem 5vw 2rem;
-    background: var(--color-bg);
+    padding: 6rem 4rem 2rem;
+    background: var(--color-bg-light);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .footer-grid {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -1066,20 +1196,20 @@ a, button, .property-card, .neighborhood-card {
     margin-bottom: 4rem;
 }
 
-.footer-brand .footer-logo {
+.footer-logo {
     font-family: var(--font-serif);
-    font-size: 1.75rem;
-    font-weight: 300;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--color-text);
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .footer-brand p {
-    font-size: 0.875rem;
     color: var(--color-text-muted);
+    font-weight: 300;
     line-height: 1.7;
-    max-width: 280px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .footer-social {
@@ -1088,29 +1218,41 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .footer-social a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--color-text-muted);
-    transition: color 0.3s;
+    text-decoration: none;
+    transition: all 0.4s var(--transition-smooth);
 }
 
 .footer-social a:hover {
+    border-color: var(--color-accent);
     color: var(--color-accent);
+    transform: translateY(-3px);
 }
 
 .footer-links h4 {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     color: var(--color-text);
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links p {
     display: block;
-    font-size: 0.875rem;
     color: var(--color-text-muted);
     text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 300;
     margin-bottom: 0.75rem;
     transition: color 0.3s;
 }
@@ -1119,14 +1261,8 @@ a, button, .property-card, .neighborhood-card {
     color: var(--color-accent);
 }
 
-.footer-links p {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    line-height: 1.6;
-}
-
 .footer-bottom {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -1136,8 +1272,9 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .footer-bottom p {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--color-text-dim);
+    font-weight: 300;
 }
 
 .footer-legal {
@@ -1146,53 +1283,115 @@ a, button, .property-card, .neighborhood-card {
 }
 
 .footer-legal a {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--color-text-dim);
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .footer-legal a:hover {
-    color: var(--color-text-muted);
+    color: var(--color-accent);
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.4s var(--transition-smooth);
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scaleY(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
 }
 
 /* ========================================
    RESPONSIVE
    ======================================== */
 @media (max-width: 1024px) {
+    .nav {
+        padding: 1.5rem 2rem;
+    }
+    
+    .nav.scrolled {
+        padding: 1rem 2rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+    
+    .search-filters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
     .properties-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
     .property-card.featured {
         grid-column: span 2;
-        grid-row: span 1;
     }
     
     .neighborhoods-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
+        grid-template-rows: repeat(3, 300px);
     }
     
     .neighborhood-card.large {
         grid-column: span 2;
         grid-row: span 1;
-        aspect-ratio: 2/1;
     }
     
-    .contact-cta {
+    .contact-container {
         grid-template-columns: 1fr;
-    }
-    
-    .contact-image {
-        aspect-ratio: 16/9;
+        gap: 4rem;
     }
     
     .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .stats-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -1206,12 +1405,42 @@ a, button, .property-card, .neighborhood-card {
         display: flex;
     }
     
-    .hero-content {
-        padding: 0 1.5rem;
+    .hero {
+        min-height: 600px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
     }
     
     .hero-cta {
         flex-direction: column;
+        align-items: center;
+    }
+    
+    .stats {
+        padding: 5rem 2rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .search-section {
+        padding: 5rem 2rem;
+    }
+    
+    .search-filters {
+        grid-template-columns: 1fr;
+    }
+    
+    .properties {
+        padding: 5rem 2rem;
     }
     
     .properties-grid {
@@ -1219,25 +1448,40 @@ a, button, .property-card, .neighborhood-card {
     }
     
     .property-card.featured {
-        grid-column: span 1;
+        grid-template-columns: 1fr;
+    }
+    
+    .neighborhoods {
+        padding: 5rem 2rem;
     }
     
     .neighborhoods-grid {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
     }
     
+    .neighborhood-card,
     .neighborhood-card.large {
         grid-column: span 1;
-        aspect-ratio: 1;
+        grid-row: span 1;
+        height: 300px;
     }
     
-    .stats-container {
-        grid-template-columns: 1fr;
+    .testimonials {
+        padding: 5rem 2rem;
+    }
+    
+    .contact-section {
+        padding: 5rem 2rem;
+    }
+    
+    .footer {
+        padding: 4rem 2rem 2rem;
     }
     
     .footer-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 3rem;
     }
     
     .footer-bottom {
@@ -1246,31 +1490,21 @@ a, button, .property-card, .neighborhood-card {
         text-align: center;
     }
     
-    body {
-        cursor: auto;
-    }
-    
-    .cursor-dot,
-    .cursor-outline {
-        display: none;
-    }
-    
-    a, button, .property-card, .neighborhood-card {
-        cursor: pointer;
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 1.5rem;
+        right: 1.5rem;
     }
 }
 
-/* ========================================
-   REDUCED MOTION
-   ======================================== */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-    
-    .marquee-track {
-        animation: none;
     }
 }
