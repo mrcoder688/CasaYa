@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | CasaYa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .admin { padding-top: 80px; min-height: 100vh; background: #0a0a0f; }
+        .admin-header { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .admin-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; font-weight: 300; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem 2rem; }
+        .stat-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; }
+        .stat-card h3 { color: rgba(255,255,255,0.5); font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; }
+        .stat-card .value { color: #fff; font-size: 2rem; font-weight: 500; }
+        .admin-section { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .admin-section h2 { color: #fff; font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: 400; }
+        .inquiries-table { width: 100%; border-collapse: collapse; }
+        .inquiries-table th { text-align: left; padding: 1rem; color: rgba(255,255,255,0.5); font-weight: 400; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .inquiries-table td { padding: 1rem; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .inquiries-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .status-badge { padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; }
+        .properties-admin { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .property-admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+        .property-admin-card img { width: 100%; height: 150px; object-fit: cover; }
+        .property-admin-card-content { padding: 1rem; }
+        .property-admin-card h4 { color: #fff; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .property-admin-card p { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+        .property-admin-card .views { color: #c9a96e; font-size: 0.8rem; margin-top: 0.5rem; }
+        .btn-action { padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+        .btn-action:hover { background: rgba(255,255,255,0.1); }
+        .logout-btn { padding: 0.75rem 1.5rem; background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.2); color: #ff4757; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../index.html" class="nav-logo"><span class="logo-text">CasaYa</span><span class="logo-dot"></span></a>
+        <div class="nav-links">
+            <a href="../index.html" class="nav-link">Web</a>
+            <a href="dashboard.html" class="nav-link">Mi cuenta</a>
+            <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+        </div>
+    </nav>
+
+    <div class="admin">
+        <div class="admin-header">
+            <h1>Panel de Administración</h1>
+        </div>
+        <div class="stats-grid" id="statsGrid"></div>
+        
+        <div class="admin-section">
+            <h2>📨 Solicitudes recientes</h2>
+            <div style="overflow-x: auto;">
+                <table class="inquiries-table" id="inquiriesTable">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Propiedad</th>
+                            <th>Cliente</th>
+                            <th>Contacto</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inquiriesBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>🏠 Propiedades</h2>
+            <div class="properties-admin" id="propertiesAdmin"></div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script>
+        function checkAdmin() {
+            const user = Storage.getUser();
+            if (!user || !user.isAdmin) {
+                alert('Acceso denegado');
+                window.location.href = '../index.html';
+            }
+        }
+
+        function renderStats() {
+            const stats = getAdminStats();
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card">
+                    <h3>Propiedades</h3>
+                    <div class="value">${stats.totalProperties}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Solicitudes totales</h3>
+                    <div class="value">${stats.totalInquiries}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Solicitudes nuevas</h3>
+                    <div class="value" style="color: #00d4aa;">${stats.newInquiries}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Visitas totales</h3>
+                    <div class="value">${stats.totalViews.toLocaleString()}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Precio medio</h3>
+                    <div class="value">${formatPrice(stats.avgPrice)}</div>
+                </div>
+            `;
+        }
+
+        function renderInquiries() {
+            const inquiries = Storage.getInquiries();
+            const tbody = document.getElementById('inquiriesBody');
+            if (inquiries.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: rgba(255,255,255,0.4);">No hay solicitudes</td></tr>';
+                return;
+            }
+            tbody.innerHTML = inquiries.slice().reverse().map(i => `
+                <tr>
+                    <td>${new Date(i.date).toLocaleDateString('es-ES')}</td>
+                    <td>${i.propertyTitle}</td>
+                    <td>${i.name}</td>
+                    <td>${i.email}<br>${i.phone || ''}</td>
+                    <td><span class="status-badge status-${i.status}">${i.status}</span></td>
+                    <td>
+                        <button class="btn-action" onclick="updateStatus(${i.id}, 'contactado')">Marcar contactado</button>
+                        <button class="btn-action" onclick="updateStatus(${i.id}, 'cerrado')">Cerrar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderProperties() {
+            const container = document.getElementById('propertiesAdmin');
+            container.innerHTML = PROPERTIES.map(p => `
+                <div class="property-admin-card">
+                    <img src="${p.image}" alt="${p.title}">
+                    <div class="property-admin-card-content">
+                        <h4>${p.title}</h4>
+                        <p>${p.location}</p>
+                        <div class="views">👁 ${p.views} visitas</div>
+                        <p style="color: #c9a96e; margin-top: 0.5rem;">${formatPrice(p.price)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStatus(id, status) {
+            const inquiries = Storage.getInquiries();
+            const inquiry = inquiries.find(i => i.id === id);
+            if (inquiry) {
+                inquiry.status = status;
+                localStorage.setItem('casaya_inquiries', JSON.stringify(inquiries));
+                renderInquiries();
+                renderStats();
+            }
+        }
+
+        function logout() {
+            Storage.logout();
+            window.location.href = '../index.html';
+        }
+
+        checkAdmin();
+        renderStats();
+        renderInquiries();
+        renderProperties();
+    </script>
+</body>
+</html>
